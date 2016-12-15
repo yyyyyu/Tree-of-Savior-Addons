@@ -23,4 +23,4 @@ Unsummonと競合して動かないかも。未検証。
 	- /unbuff traceoff を実行すれば上記の出力は止まります。
 
 インストールは手動でよろ。
-
+ダウンロード => [_unbuff-☕-v1.0.0.ipf](https://github.com/yyyyyu/Tree-of-Savior-Addons/blob/master/unbuff/_unbuff-%E2%98%95-v1.0.0.ipf)
