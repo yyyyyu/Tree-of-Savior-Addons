@@ -1,0 +1,14 @@
+[
+	{
+		"name" : "アドオン名",
+		"file" : "ファイル名",
+		"extension" : "ipf",
+		"releaseTag" : "brandish",
+		"fileVersion" : "v0.9.0",
+		"unicode" : "⛄",
+		"description" : "説明",
+		"tags" : [
+			"skills"
+		]
+	}
+]
