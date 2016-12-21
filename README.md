@@ -2,7 +2,7 @@
 
 ## Unbuff
 
-[Unsummon](http://mint.2ch.net/test/read.cgi/ogame2/1477572608/798)をレビテーションなどのスキルでも利用できるようにしただけのもの。
+2chスレにあった[Unsummon](http://mint.2ch.net/test/read.cgi/ogame2/1477572608/798)を参考にして、レビテーションなどのスキルでも利用できるようにしたもの。
 Unsummonと競合して動かないかも。未検証。
 
 - 召喚中にサモニング再利用で解除
