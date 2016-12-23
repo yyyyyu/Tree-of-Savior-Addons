@@ -21,7 +21,7 @@ _G.ADDONS.YYU.KeepHeadMessage = _G.ADDONS.YYU.KeepHeadMessage or {};
 	
 	function g.intercept(msg)
 		if string.find(msg, '!!') == 1 then
-			g.store.set('msg', msg, g.lazysave);
+			g.store.set(g.msgKey, msg, g.lazysave);
 		end
 	end
 
@@ -33,9 +33,10 @@ _G.ADDONS.YYU.KeepHeadMessage = _G.ADDONS.YYU.KeepHeadMessage or {};
 		g.store = g.store or YYUtil.File.createSimpleStore('keepheadmessage');
 		g.store.flush();
 		g.lazysave = g.store.get('lazysave') == '1';
-		
+		g.msgKey = 'm' .. session.GetMySession():GetCID();
+
 		if g.store.get('disabled') ~= '1' then
-			local msg = g.store.get('msg');
+			local msg = g.store.get(g.msgKey);
 			if string.find(msg, '!!') == 1 then
 				UI_CHAT(msg);
 			end
@@ -45,7 +46,7 @@ _G.ADDONS.YYU.KeepHeadMessage = _G.ADDONS.YYU.KeepHeadMessage or {};
 			YYUtil.intercept(_G, 'UI_CHAT', g.intercept);
 
 			g.loaded = true;
-			CHAT_SYSTEM('Keep Head Message loaded.');
+			CHAT_SYSTEM('Keep Head Message 1.1.0 loaded.');
 		end
 	end
 
