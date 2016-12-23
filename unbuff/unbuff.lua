@@ -1,47 +1,5 @@
 _G.ADDONS = _G.ADDONS or {};
 _G.ADDONS.YYU = _G.ADDONS.YYU or {};
-
--- YYU.Util BEGIN
-_G.ADDONS.YYU.Util = _G.ADDONS.YYU.Util or {};
-if _G.ADDONS.YYU.Util.slashCommands == nil then
-	_G.ADDONS.YYU.Util.UI_CHAT_ORIGINAL = _G.UI_CHAT;
-	_G.ADDONS.YYU.Util.slashCommands = {};
-	if pcall(function() require('acutil') end) then
-		_G.ADDONS.YYU.Util.slashCommand = function(cmd, fn)
-			require('acutil').slashCommand(cmd, fn);
-		end
-	else
-		_G.ADDONS.YYU.Util.slashCommand = function(cmd, fn)
-			if cmd:sub(1,1) ~= "/" then cmd = "/" .. cmd end
-			_G.ADDONS.YYU.Util.slashCommands[cmd] = fn;
-		end
-	end
-	_G.ADDONS.YYU.Util.UI_CHAT_HOOKED = function(msg)
-		-- reference: https://github.com/Tree-of-Savior-Addon-Community/AC-Util/blob/master/src/cwapi.lua
-		local words = {};
-		for w in msg:gmatch('%S+') do table.insert(words, w) end
-		
-		local yyutil = _G.ADDONS.YYU.Util;
-		local fn = yyutil.slashCommands[table.remove(words, 1)];
-		if fn == nil then
-			yyutil.UI_CHAT_ORIGINAL(msg);
-		else
-			fn(words);
-		
-			-- close chat
-			local chatFrame = GET_CHATFRAME();
-			local edit = chatFrame:GetChild('mainchat');
-			chatFrame:ShowWindow(0);
-			edit:ShowWindow(0);
-			ui.CloseFrame("chat_option");
-			ui.CloseFrame("chat_emoticon");
-		end
-	end
-	_G.UI_CHAT = _G.ADDONS.YYU.Util.UI_CHAT_HOOKED;
-end
--- YYU.Util END
-
--- Unbuff Addon
 _G.ADDONS.YYU.UNBUFF = _G.ADDONS.YYU.UNBUFF or {};
 local Unbuff = _G.ADDONS.YYU.UNBUFF;
 
