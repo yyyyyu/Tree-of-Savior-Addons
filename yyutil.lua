@@ -2,11 +2,107 @@ _G.ADDONS = _G.ADDONS or {};
 _G.ADDONS.YYU = _G.ADDONS.YYU or {};
 _G.ADDONS.YYU.Util = _G.ADDONS.YYU.Util or {};
 
-(function(yyutil)
+(function(YYUtil)
+	----------
+	-- File --
+	----------
+	YYUtil.File = {};
+	
+	function YYUtil.File.createAddonFolder(addonName)
+		os.execute('mkdir ..\\addons\\' .. addonName);
+	end
+	
+	function YYUtil.File.write(addonName, relativePath, text)
+		local file, error = io.open('../addons/' .. addonName .. '/' .. relativePath, 'w')
+		if error then
+			return nil, error;
+		end
+
+		file:write(text);
+		file:close();
+	end
+	
+	function YYUtil.File.read(addonName, relativePath)
+		local file, error = io.open('../addons/' .. addonName .. '/' .. relativePath, 'r');
+		if error then
+			return nil, error;
+		end
+		
+		local ret = file:read("*all");
+		file:close();
+		return ret;
+	end
+
+	----------------------------
+	-- File.createSimpleStore --
+	----------------------------
+	function YYUtil.File.createSimpleStore(addonName)
+		local File = YYUtil.File;
+
+		local ret = {};
+		local cache = {};
+		local savedCache = {};
+		
+		ret.set = function(key, text, _unsave)
+			if (cache[key] or savedCache[key]) ~= text then
+				if _unsave == true then
+					cache[key] = text;
+					savedCache[key] = nil;
+				else
+					cache[key] = nil;
+					savedCache[key] = text;
+					File.write(addonName, key .. '.txt', text);
+				end
+			end
+		end
+		
+		ret.get = function(key)
+			local data = cache[key] or savedCache[key];
+			if data ~= nil then return data; end
+			return File.read(addonName, key .. '.txt') or '';
+		end
+		
+		ret.flush = function()
+			for k,v in pairs(cache) do
+				local unused, error = File.write(addonName, k .. '.txt', v);
+				if error == nil then
+					cache[k] = nil;
+					savedCache[k] = v;
+				end
+			end
+		end
+		
+		ret.dump = function()
+			local ret = '[cache]';
+			for k,v in pairs(cache) do
+				ret = ret .. k .. '=' .. v .. ',';
+			end
+			ret = ret .. '[savedCache]';
+			for k,v in pairs(savedCache) do
+				ret = ret .. k .. '=' .. v .. ',';
+			end
+			CHAT_SYSTEM(ret);
+			return ret;
+		end
+		
+		-- create addon directory
+		local data, error = File.read(addonName, '.simplestore');
+		if error ~= nil then
+			File.createAddonFolder(addonName);
+			File.write(addonName, '.simplestore', '');
+		end
+
+		ret.addonName = addonName;
+		ret.cache = cache;
+		ret.savedCache = savedCache;
+		
+		return ret;
+	end
+
 	-----------
 	-- proxy --
 	-----------
-	function yyutil.intercept(obj, key, prev, post)
+	function YYUtil.intercept(obj, key, prev, post)
 		local fn = obj[key];
 		obj[key] = function(...)
 			if type(prev) == 'function' and prev(...) then
@@ -21,7 +117,7 @@ _G.ADDONS.YYU.Util = _G.ADDONS.YYU.Util or {};
 		end
 	end
 
-	function yyutil.hook(obj, key, prev, post)
+	function YYUtil.hook(obj, key, prev, post)
 		if type(prev) == 'function' then
 			local a = obj[key];
 			obj[key] = function(...)
@@ -40,29 +136,29 @@ _G.ADDONS.YYU.Util = _G.ADDONS.YYU.Util or {};
 	-------------------
 	-- slashCommands --
 	-------------------
-	if yyutil.slashCommands == nil then
+	if YYUtil.slashCommands == nil then
 
-		yyutil.slashCommands = {};
+		YYUtil.slashCommands = {};
 
-		if pcall(function() require('acutil') end) then
-			yyutil.slashCommand = function(cmd, fn)
-				require('acutil').slashCommand(cmd, fn);
-			end
-		else
-			yyutil.slashCommand = function(cmd, fn)
-				if cmd:sub(1,1) ~= "/" then cmd = "/" .. cmd end
-				yyutil.slashCommands[cmd] = fn;
-			end
-		end
+		--if pcall(function() require('acutil') end) then
+		--	YYUtil.slashCommand = function(cmd, fn)
+		--		require('acutil').slashCommand(cmd, fn);
+		--	end
+		--else
+				YYUtil.slashCommand = function(cmd, fn)
+					if cmd:sub(1,1) ~= "/" then cmd = "/" .. cmd end
+					YYUtil.slashCommands[cmd] = fn;
+				end
+		--end
 
-		yyutil.UI_CHAT_HOOKED = function(msg)
+		YYUtil.UI_CHAT_HOOKED = function(msg)
 			-- reference: https://github.com/Tree-of-Savior-Addon-Community/AC-Util/blob/master/src/cwapi.lua
 			local words = {};
 			for w in msg:gmatch('%S+') do table.insert(words, w) end
 			
-			local fn = yyutil.slashCommands[table.remove(words, 1)];
+			local fn = YYUtil.slashCommands[table.remove(words, 1)];
 			if fn == nil then
-				yyutil.UI_CHAT_ORIGINAL(msg);
+				YYUtil.UI_CHAT_ORIGINAL(msg);
 			else
 				fn(words);
 			
@@ -77,7 +173,8 @@ _G.ADDONS.YYU.Util = _G.ADDONS.YYU.Util or {};
 		end
 
 		-- hook
-		yyutil.UI_CHAT_ORIGINAL = _G.UI_CHAT;
-		_G.UI_CHAT = yyutil.UI_CHAT_HOOKED;
+		YYUtil.UI_CHAT_ORIGINAL = _G.UI_CHAT;
+		_G.UI_CHAT = YYUtil.UI_CHAT_HOOKED;
 	end
 end)(_G.ADDONS.YYU.Util);
+

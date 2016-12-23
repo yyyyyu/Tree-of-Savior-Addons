@@ -1,5 +1,20 @@
 # Tree of Savior Addons
 
+## Keep Head Message
+
+`!!メッセージ` でキャラの頭上に表示される文字をチャンネル変更時やクライアント再起動時などに消えないようにするアドオン。
+
+- チャットコマンド
+	- /khm off 動作しないように設定する
+	- /khm on  上のコマンドで行った設定を戻す
+	- /khm lazysaveon  メッセージの保存処理をチャット入力時ではなくチャンヘル変更時に変更
+	- /khm lazysaveoff 上のコマンドで行った設定を戻す
+	- ※ /khm は /keepheadcommand でもOK(長い)
+
+インストールは手動でよろ。
+ダウンロード => [_keepheadmessage-☕-v1.0.0.ipf](https://github.com/yyyyyu/Tree-of-Savior-Addons/blob/master/KeepHeadMessage/_keepheadmessage-%E2%98%95-v1.0.0.ipf)
+
+
 ## Unbuff
 
 2chスレにあった[Unsummon](http://mint.2ch.net/test/read.cgi/ogame2/1477572608/798)を参考にして、レビテーションなどのスキルでも利用できるようにしたもの。
