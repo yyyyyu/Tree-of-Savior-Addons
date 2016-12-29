@@ -1,7 +1,7 @@
 _G.ADDONS = _G.ADDONS or {};
 _G.ADDONS.YYU = _G.ADDONS.YYU or {};
 _G.ADDONS.YYU.KeepHeadMessage = _G.ADDONS.YYU.KeepHeadMessage or {};
-
+_G.ADDONS.YYU.KeepHeadMessage.Version = '1.1.2';
 (function(g)
 	function g.commandHandler(commands)
 		local command = string.lower(commands[1] or '');
@@ -46,7 +46,7 @@ _G.ADDONS.YYU.KeepHeadMessage = _G.ADDONS.YYU.KeepHeadMessage or {};
 			YYUtil.intercept(_G, 'UI_CHAT', g.intercept);
 
 			g.loaded = true;
-			CHAT_SYSTEM('Keep Head Message 1.1.1 loaded.');
+			CHAT_SYSTEM('Keep Head Message ' .. g.Version .. ' loaded.');
 		end
 	end
 

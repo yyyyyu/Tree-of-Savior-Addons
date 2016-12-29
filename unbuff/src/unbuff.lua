@@ -1,7 +1,7 @@
 _G.ADDONS = _G.ADDONS or {};
 _G.ADDONS.YYU = _G.ADDONS.YYU or {};
 _G.ADDONS.YYU.UNBUFF = _G.ADDONS.YYU.UNBUFF or {};
-_G.ADDONS.YYU.UNBUFF.Version = '1.1.0';
+_G.ADDONS.YYU.UNBUFF.Version = '1.1.1';
 (function(g)
 	-- Skill Tables
 	g.skillTable = g.skillTable or {};

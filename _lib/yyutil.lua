@@ -2,7 +2,7 @@ _G.ADDONS = _G.ADDONS or {};
 _G.ADDONS.YYU = _G.ADDONS.YYU or {};
 _G.ADDONS.YYU.Util = _G.ADDONS.YYU.Util or {};
 (function(YYUtil)
-	local VERSION = 2;
+	local VERSION = 3;
 	if YYUtil.version == nil or YYUtil.version < VERSION then
 		YYUtil.version = VERSION;
 	else
@@ -167,7 +167,7 @@ _G.ADDONS.YYU.Util = _G.ADDONS.YYU.Util or {};
 	--end
 
 	YYUtil.UI_CHAT_HOOKED = function(msg)
-		-- reference: https://github.com/Tree-of-Savior-Addon-Community/AC-Util/blob/master/src/cwapi.lua
+		-- refer: https://github.com/Tree-of-Savior-Addon-Community/AC-Util/blob/master/src/cwapi.lua
 		local words = {};
 		for w in msg:gmatch('%S+') do table.insert(words, w) end
 		
@@ -178,6 +178,7 @@ _G.ADDONS.YYU.Util = _G.ADDONS.YYU.Util or {};
 
 		local fn = YYUtil.slashCommands[cmd];
 		if fn == nil then
+
 			YYUtil.UI_CHAT_ORIGINAL(msg);
 		else
 			fn(words);
@@ -193,7 +194,11 @@ _G.ADDONS.YYU.Util = _G.ADDONS.YYU.Util or {};
 	end
 
 	-- hook
-	YYUtil.UI_CHAT_ORIGINAL = _G.UI_CHAT;
-	_G.UI_CHAT = YYUtil.UI_CHAT_HOOKED;
+	if YYUtil.UI_CHAT_ORIGINAL == nil then
+		YYUtil.UI_CHAT_ORIGINAL = _G.UI_CHAT;
+		_G.UI_CHAT = function(...)
+			 YYUtil.UI_CHAT_HOOKED(...);
+		end
+	end
 end)(_G.ADDONS.YYU.Util);
 
