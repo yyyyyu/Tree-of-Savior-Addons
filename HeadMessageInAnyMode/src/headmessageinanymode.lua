@@ -4,7 +4,7 @@ _G.ADDONS.YYU.HeadMessageInAnyMode = _G.ADDONS.YYU.HeadMessageInAnyMode or {};
 _G.ADDONS.YYU.HeadMessageInAnyMode.Version = '1.0.0';
 (function(g)
 	function g.hook(msg)
-		return string.find(msg, '^/[gprsw] !!') == 1 and string.sub(msg, 4) or msg;
+		return string.find(msg, '^/[gprswy] !!') == 1 and string.sub(msg, 4) or msg;
 	end
 
 	function g.init(addon, frame)

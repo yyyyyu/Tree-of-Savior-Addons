@@ -15,7 +15,8 @@
 
 ### ダウンロード
 
-- [_headmessageinanymode-☕-v1.0.0.ipf](https://github.com/yyyyyu/Tree-of-Savior-Addons/blob/master/HeadMessageInAnyMode/ipf/_headmessageinanymode-%E2%98%95-v1.0.0.ipf) 初回リリース
+- [_headmessageinanymode-☕-v1.0.1.ipf](https://github.com/yyyyyu/Tree-of-Savior-Addons/blob/master/HeadMessageInAnyMode/ipf/_headmessageinanymode-%E2%98%95-v1.0.1.ipf) シャウトが普通にシャウトされてしまうバグを修正
+- _headmessageinanymode-☕-v1.0.0.ipf 初回リリース
 
 
 
@@ -27,7 +28,8 @@ This addon enables to use Head Message in any chat(normal chat, PT chat, guild c
 
 ### Download
 
-- [_headmessageinanymode-☕-v1.0.0.ipf](https://github.com/yyyyyu/Tree-of-Savior-Addons/blob/master/HeadMessageInAnyMode/ipf/_headmessageinanymode-%E2%98%95-v1.0.0.ipf) first release
+- [_headmessageinanymode-☕-v1.0.1.ipf](https://github.com/yyyyyu/Tree-of-Savior-Addons/blob/master/HeadMessageInAnyMode/ipf/_headmessageinanymode-%E2%98%95-v1.0.1.ipf) fix bug not work in shout chat mode.
+- _headmessageinanymode-☕-v1.0.0.ipf first release
 
 
 ### Installation
