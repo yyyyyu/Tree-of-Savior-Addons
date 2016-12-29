@@ -46,7 +46,7 @@ _G.ADDONS.YYU.KeepHeadMessage = _G.ADDONS.YYU.KeepHeadMessage or {};
 			YYUtil.intercept(_G, 'UI_CHAT', g.intercept);
 
 			g.loaded = true;
-			CHAT_SYSTEM('Keep Head Message 1.1.0 loaded.');
+			CHAT_SYSTEM('Keep Head Message 1.1.1 loaded.');
 		end
 	end
 

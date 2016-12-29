@@ -1,8 +1,14 @@
 _G.ADDONS = _G.ADDONS or {};
 _G.ADDONS.YYU = _G.ADDONS.YYU or {};
 _G.ADDONS.YYU.Util = _G.ADDONS.YYU.Util or {};
-
 (function(YYUtil)
+	local VERSION = 2;
+	if YYUtil.version == nil or YYUtil.version < VERSION then
+		YYUtil.version = VERSION;
+	else
+		return;
+	end
+
 	----------
 	-- File --
 	----------
@@ -36,6 +42,17 @@ _G.ADDONS.YYU.Util = _G.ADDONS.YYU.Util or {};
 	----------------------------
 	-- File.createSimpleStore --
 	----------------------------
+	YYUtil.File.sharedSimpleStores = YYUtil.File.sharedSimpleStores or {}
+	
+	function YYUtil.File.sharedSimpleStore(addonName)
+		local store = YYUtil.File.sharedSimpleStores[addonName];
+		if store == nil then
+			store = YYUtil.File.createSimpleStore(addonName);
+			YYUtil.File.sharedSimpleStores[addonName] = store;
+		end
+		return store;
+	end
+	
 	function YYUtil.File.createSimpleStore(addonName)
 		local File = YYUtil.File;
 
@@ -136,45 +153,47 @@ _G.ADDONS.YYU.Util = _G.ADDONS.YYU.Util or {};
 	-------------------
 	-- slashCommands --
 	-------------------
-	if YYUtil.slashCommands == nil then
+	YYUtil.slashCommands = {};
 
-		YYUtil.slashCommands = {};
-
-		--if pcall(function() require('acutil') end) then
-		--	YYUtil.slashCommand = function(cmd, fn)
-		--		require('acutil').slashCommand(cmd, fn);
-		--	end
-		--else
-				YYUtil.slashCommand = function(cmd, fn)
-					if cmd:sub(1,1) ~= "/" then cmd = "/" .. cmd end
-					YYUtil.slashCommands[cmd] = fn;
-				end
-		--end
-
-		YYUtil.UI_CHAT_HOOKED = function(msg)
-			-- reference: https://github.com/Tree-of-Savior-Addon-Community/AC-Util/blob/master/src/cwapi.lua
-			local words = {};
-			for w in msg:gmatch('%S+') do table.insert(words, w) end
-			
-			local fn = YYUtil.slashCommands[table.remove(words, 1)];
-			if fn == nil then
-				YYUtil.UI_CHAT_ORIGINAL(msg);
-			else
-				fn(words);
-			
-				-- close chat
-				local chatFrame = GET_CHATFRAME();
-				local edit = chatFrame:GetChild('mainchat');
-				chatFrame:ShowWindow(0);
-				edit:ShowWindow(0);
-				ui.CloseFrame("chat_option");
-				ui.CloseFrame("chat_emoticon");
+	--if pcall(function() require('acutil') end) then
+	--	YYUtil.slashCommand = function(cmd, fn)
+	--		require('acutil').slashCommand(cmd, fn);
+	--	end
+	--else
+			YYUtil.slashCommand = function(cmd, fn)
+				if cmd:sub(1,1) ~= "/" then cmd = "/" .. cmd end
+				YYUtil.slashCommands[cmd] = fn;
 			end
+	--end
+
+	YYUtil.UI_CHAT_HOOKED = function(msg)
+		-- reference: https://github.com/Tree-of-Savior-Addon-Community/AC-Util/blob/master/src/cwapi.lua
+		local words = {};
+		for w in msg:gmatch('%S+') do table.insert(words, w) end
+		
+		local cmd = table.remove(words, 1);
+		if #words ~= 0 and #cmd == 2 and string.find(cmd, '/[gprsw]') == 1 then
+			cmd = table.remove(words, 1);
 		end
 
-		-- hook
-		YYUtil.UI_CHAT_ORIGINAL = _G.UI_CHAT;
-		_G.UI_CHAT = YYUtil.UI_CHAT_HOOKED;
+		local fn = YYUtil.slashCommands[cmd];
+		if fn == nil then
+			YYUtil.UI_CHAT_ORIGINAL(msg);
+		else
+			fn(words);
+		
+			-- close chat
+			local chatFrame = GET_CHATFRAME();
+			local edit = chatFrame:GetChild('mainchat');
+			chatFrame:ShowWindow(0);
+			edit:ShowWindow(0);
+			ui.CloseFrame("chat_option");
+			ui.CloseFrame("chat_emoticon");
+		end
 	end
+
+	-- hook
+	YYUtil.UI_CHAT_ORIGINAL = _G.UI_CHAT;
+	_G.UI_CHAT = YYUtil.UI_CHAT_HOOKED;
 end)(_G.ADDONS.YYU.Util);
 
