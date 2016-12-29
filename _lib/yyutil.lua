@@ -172,7 +172,7 @@ _G.ADDONS.YYU.Util = _G.ADDONS.YYU.Util or {};
 		for w in msg:gmatch('%S+') do table.insert(words, w) end
 		
 		local cmd = table.remove(words, 1);
-		if #words ~= 0 and #cmd == 2 and string.find(cmd, '/[gprsw]') == 1 then
+		if #words ~= 0 and #cmd == 2 and string.find(cmd, '^/[gprsw]') == 1 then
 			cmd = table.remove(words, 1);
 		end
 
