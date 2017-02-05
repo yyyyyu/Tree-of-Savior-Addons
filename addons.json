@@ -1,14 +1,15 @@
 [
 	{
-		"name" : "アドオン名",
-		"file" : "ファイル名",
+		"name" : "Unbuff",
+		"file" : "unbuff",
 		"extension" : "ipf",
-		"releaseTag" : "brandish",
-		"fileVersion" : "v0.9.0",
-		"unicode" : "⛄",
-		"description" : "説明",
+		"fileVersion" : "v1.1.2",
+		"releaseTag" : "unbuff",
+		"unicode" : "☕",
+		"description" : "スキルの再使用でバフを解除するアドオン(2chにあったUnsummonをレビテなどにも対応したもの)",
 		"tags" : [
-			"skills"
+			"skill",
+			"buff"
 		]
 	}
 ]
