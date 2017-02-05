@@ -2,7 +2,7 @@ _G.ADDONS = _G.ADDONS or {};
 _G.ADDONS.YYU = _G.ADDONS.YYU or {};
 _G.ADDONS.YYU.Util = _G.ADDONS.YYU.Util or {};
 (function(YYUtil)
-	local VERSION = 3;
+	local VERSION = 4;
 	if YYUtil.version == nil or YYUtil.version < VERSION then
 		YYUtil.version = VERSION;
 	else
@@ -12,7 +12,7 @@ _G.ADDONS.YYU.Util = _G.ADDONS.YYU.Util or {};
 	----------
 	-- File --
 	----------
-	YYUtil.File = {};
+	YYUtil.File = YYUtil.File or {};
 	
 	function YYUtil.File.createAddonFolder(addonName)
 		os.execute('mkdir ..\\addons\\' .. addonName);
@@ -172,7 +172,7 @@ _G.ADDONS.YYU.Util = _G.ADDONS.YYU.Util or {};
 		for w in msg:gmatch('%S+') do table.insert(words, w) end
 		
 		local cmd = table.remove(words, 1);
-		if #words ~= 0 and #cmd == 2 and string.find(cmd, '^/[gprsw]') == 1 then
+		if #words ~= 0 and #cmd == 2 and string.find(cmd, '^/[gprswy]') == 1 then
 			cmd = table.remove(words, 1);
 		end
 
