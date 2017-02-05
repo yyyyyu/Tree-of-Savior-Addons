@@ -57,7 +57,8 @@ Unsummonと競合して動かないかも。未検証。
 
 #### ダウンロード
 
-- [_unbuff-☕-v1.1.1.ipf](https://github.com/yyyyyu/Tree-of-Savior-Addons/blob/master/unbuff/ipf/_unbuff-%E2%98%95-v1.1.1.ipf) 他の古いバージョンのアドオン混在でハングする問題の修正
+- [_unbuff-☕-v1.1.2.ipf](https://github.com/yyyyyu/Tree-of-Savior-Addons/blob/master/unbuff/ipf/_unbuff-%E2%98%95-v1.1.2.ipf) ギルドチャットでチャットコマンドが動作しないバグの修正
+- _unbuff-☕-v1.1.1.ipf 他の古いバージョンのアドオン混在でハングする問題の修正
 - _unbuff-☕-v1.1.0.ipf トランスポーズの対応, モード設定機能の追加, チャットコマンドの不具合修正
 - _unbuff-☕-v1.0.0.ipf 初回リリース
 
