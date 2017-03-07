@@ -17,6 +17,7 @@ _G.ADDONS.YYU.UNBUFF.Version = '1.1.1';
 	g.addUnbuffTable("levitation", 21107, 3070, '1');
 	g.addUnbuffTable("transpose",  20504,  167, '0');
 	g.addUnbuffTable('deedsofvalor',11001,  46, '1');
+	g.addUnbuffTable('cassiscrista',11301,  3033, '1');
 
 	function g.hook(frame, slot, ...)
 		if GetCraftState() == 1 then
