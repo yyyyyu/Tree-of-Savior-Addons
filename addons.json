@@ -3,7 +3,7 @@
 		"name" : "Unbuff",
 		"file" : "unbuff",
 		"extension" : "ipf",
-		"fileVersion" : "v1.1.2",
+		"fileVersion" : "v1.1.4",
 		"releaseTag" : "unbuff",
 		"unicode" : "☕",
 		"description" : "スキルの再使用でバフを解除するアドオン(2chにあったUnsummonをレビテなどにも対応したもの)",
